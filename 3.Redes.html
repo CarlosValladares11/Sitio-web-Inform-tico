@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enciclopedia Técnica: Redes, Protocolos y Arquitectura Global</title>
+    <style>
+
+/*INICIO STYLE NAV*/
+
+/* ========================================================= */
+/* ESTILOS DEL NAVEGADOR FUTURISTA (FIJO Y A PANTALLA COMPLETA) */
+/* ========================================================= */
+:root {
+  --bg-dark: #03060d;
+  --card-bg: rgba(8, 14, 28, 0.85);
+  --neon-cyan: #00f3ff;
+  --neon-magenta: #ff0055;
+  --text-main: #e0e6ed;
+}
+
+/* Limpieza de márgenes para asegurar cobertura de borde a borde */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* BARRA DE NAVEGACIÓN FIJA Y EXTENDIDA */
+.navbar-futurista {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  background: rgba(3, 6, 13, 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 2px solid var(--neon-cyan);
+  box-shadow: 0 4px 30px rgba(0, 243, 255, 0.3);
+
+  /* REGLAS PARA MANTENERLO FIJO A PANTALLA COMPLETA */
+  position: fixed;        /* Lo congela arriba permanentemente al hacer scroll */
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;            /* Abarca todo el ancho de la pantalla */
+  box-sizing: border-box; /* Previene scroll horizontal indeseado */
+  z-index: 9999;          /* Se mantiene por encima de cualquier otro elemento */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  height: 75px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 18px var(--neon-cyan), inset 0 0 10px rgba(0, 243, 255, 0.3);
+  padding: 4px;
+  background: rgba(0, 243, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.nav-logo:hover {
+  border-color: var(--neon-magenta);
+  box-shadow: 0 0 25px var(--neon-magenta), inset 0 0 12px rgba(255, 0, 85, 0.4);
+  transform: scale(1.04);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #a0aec0;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 243, 255, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item:hover {
+  color: #ffffff;
+  background: rgba(0, 243, 255, 0.18);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 15px var(--neon-cyan);
+  transform: translateY(-2px);
+}
+
+/* BRILLO Y DEGRADADO DE LA PESTAÑA ACTIVA */
+.nav-item.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(0, 243, 255, 0.4), rgba(255, 0, 85, 0.4));
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 20px var(--neon-cyan);
+}
+
+@media (max-width: 850px) {
+  .nav-logo { height: 55px; }
+}
+
+/*FIN STYLE NAV*/
+
+        /* Reseteo universal: elimina márgenes, rellenos y estandariza el cálculo de cajas en todos los elementos */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* Estilo general del cuerpo: tipografía limpia, fondo oscuro profundo con estética tecnológica y texto claro */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; background-color: #03050a; color: #d0dbe7; line-height: 1.8; padding: 30px 15px; }
+
+        /* Contenedor principal: limita el ancho de lectura a 1100px y centra horizontalmente la página */
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        /* Estilo del título principal h1: texto centrado, color blanco puro con resplandor luminoso cian */
+        h1 { text-align: center; color: #ffffff; text-shadow: 0 0 20px #00f3ff; margin-bottom: 10px; font-size: 2.5rem; font-weight: 800; }
+
+        /* Estilo del subtítulo decorativo: diseño tipo terminal en color cian brillante */
+        .subtitle { text-align: center; color: #00f3ff; margin-bottom: 30px; letter-spacing: 2px; font-size: 1.1rem; font-family: monospace; }
+
+        /* Estilo de la imagen principal: ancho completo, esquinas redondeadas y borde con brillo neón */
+ .hero-image {
+    width: 100%;
+    height: auto;        /* se adapta al tamaño real */
+    object-fit: contain; /* muestra la imagen completa */
+    border-radius: 14px;
+    border: 2px solid #00f3ff;
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
+    margin-bottom: 40px;
+    background-color: #000;
+}
+
+
+        /* Estilo de las tarjetas de contenido: contenedores translúcidos estilo Glassmorphism con bordes brillantes */
+        .card { background: rgba(8, 14, 28, 0.9); border: 1px solid rgba(0, 243, 255, 0.4); border-radius: 14px; padding: 35px; margin-bottom: 35px; box-shadow: 0 0 25px rgba(0, 243, 255, 0.15); }
+
+        /* Estilo de los títulos secundarios h2: color cian, tamaño grande, con línea divisoria luminosa inferior */
+        h2 { color: #00f3ff; margin-bottom: 22px; font-size: 1.5rem; border-bottom: 2px solid rgba(0, 243, 255, 0.3); padding-bottom: 10px; text-shadow: 0 0 8px rgba(0,243,255,0.5); }
+
+        /* Estilo de los títulos terciarios h3: subtítulos internos para desglosar conceptos técnicos complejos */
+        h3 { color: #ffffff; margin: 22px 0 10px 0; font-size: 1.15rem; font-weight: 600; border-left: 3px solid #00f3ff; padding-left: 10px; }
+
+        /* Estilo de los párrafos: asegura separación inferior y justificación del texto para mejor legibilidad */
+        p { margin-bottom: 16px; text-align: justify; }
+
+        /* Configuración de listas desordenadas: aplica sangría izquierda y margen inferior */
+        ul { margin-left: 25px; margin-bottom: 16px; }
+
+        /* Estilo de cada elemento de lista (viñeta): añade separación vertical para no saturar la lectura */
+        li { margin-bottom: 10px; }
+
+        /* Estilo para las etiquetas strong: resalta palabras clave en blanco brillante */
+        strong { color: #ffffff; font-weight: 600; }
+
+        /* Estilo para las etiquetas de código en línea (ej. <code>): simula comandos o variables de sistema */
+        code { background: rgba(0, 243, 255, 0.1); color: #00f3ff; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.9rem; }
+
+        /* Estilo para las cajas de consola de comandos: fondo negro translúcido, borde punteado y fuente monoespaciada */
+        .code-box { background: rgba(0, 0, 0, 0.7); border: 1px dashed #00f3ff; padding: 18px; border-radius: 8px; font-family: monospace; color: #00f3ff; margin-top: 18px; font-size: 0.9rem; line-height: 1.6; }
+
+        /* Estilo del pie de página: texto centrado, atenuado, con línea superior de separación */
+        footer { text-align: center; margin-top: 60px; color: #7a8c9e; font-size: 0.9rem; border-top: 1px solid rgba(0,243,255,0.2); padding-top: 25px; }
+
+        .hero-figure { margin: 0 0 40px 0; text-align: center; }
+        .hero-figure figcaption { color: #8fa3b7; font-size: 0.82rem; margin-top: 10px; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 22px 0; }
+        .info-box { background: rgba(0,243,255,0.06); border: 1px solid rgba(0,243,255,0.22); border-radius: 10px; padding: 18px; }
+        .info-box h4 { color: #00f3ff; margin-bottom: 8px; }
+        .note { border-left: 4px solid #00f3ff; background: rgba(0,243,255,0.06); padding: 16px 18px; margin: 18px 0; border-radius: 0 8px 8px 0; }
+    </style>
+</head>
+<body>
+
+ <nav class="navbar-futurista">
+    <div class="logo-container">
+      <a href="index.html">
+        <img src="logo.jpg" alt="Logo Tech" class="nav-logo">
+      </a>
+    </div>
+    
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-item">Hardware</a></li>
+      <li><a href="2.Sistemas.html" class="nav-item">Sistemas Operativos</a></li>
+      <li><a href="3.Redes.html" class="nav-item">Redes e Internet</a></li>
+      <li><a href="4.Cyberseguridad.html" class="nav-item">Ciberseguridad</a></li>
+      <li><a href="5.lenguajespro.html" class="nav-item">Software</a></li>
+    
+    </ul>
+  </nav>
+
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <h1>TEMA 3: REDES DE COMPUTADORAS E INTERNET</h1>
+        <p class="subtitle">// MONOGRAFÍA TÉCNICA COMPLETA: PROTOCOLOS, ARQUITECTURA Y SEGURIDAD GLOBAL</p>
+
+        <!-- Imagen principal -->
+        <figure class="hero-figure">
+            <img src="https://topologiasdered.com/wp-content/uploads/cables-de-red-colores-1024x633.webp" 
+                 alt="Infraestructura de red" class="hero-image">
+        </figure>
+
+        <!-- ================================================================= -->
+        <!-- SECCIÓN 1: DIRECCIONES IP, MÁSCARAS, DHCP Y SISTEMA DNS             -->
+        <!-- ================================================================= -->
+        <div class="card">
+            <h2>1. Direcciones IP, Direccionamiento Lógico, Subnetting y el Sistema DNS Avanzado</h2>
+            <p>El direccionamiento en redes de computadoras es el pilar fundamental que permite la identificación unívoca de nodos dentro de una infraestructura local o global. Sin un sistema de direccionamiento estructurado, los datos flotarían en la red sin un destino verificable.</p>
+            
+            <h3>1.1 Evolución del Protocolo IP: IPv4 vs. IPv6</h3>
+            <ul>
+                <li><strong>IPv4 (Internet Protocol version 4):</strong> Utiliza direcciones de 32 bits divididas en cuatro bloques numéricos llamados octetos (separados por puntos, ej. <code>192.168.10.50</code>). Su capacidad matemática máxima es de aproximadamente 4,320 millones de direcciones únicas, un espacio que se agotó oficialmente a nivel mundial debido a la masificación de dispositivos inteligentes.</li>
+                <li><strong>IPv6 (Internet Protocol version 6):</strong> Desarrollado para solucionar el agotamiento de direcciones mediante un esquema de 128 bits expresado en notación hexadecimal y agrupado en bloques separados por dos puntos (ej. <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>). Permite un número casi infinito de direcciones (340 undecillones), integrando seguridad IPsec de forma nativa.</li>
+            </ul>
+
+            <h3>1.2 Mecanismos de Configuración y Segmentación (DHCP y Subnetting)</h3>
+            <ul>
+                <li><strong>Servidor DHCP (Dynamic Host Configuration Protocol):</strong> Protocolo de la capa de aplicación que asigna automáticamente parámetros de red (dirección IP, máscara de subred, puerta de enlace predeterminada y servidores DNS) a los equipos que se conectan, evitando configuraciones manuales propensas a errores.</li>
+                <li><strong>Subnetting y Máscaras de Subred:</strong> Proceso matemático mediante el cual una red lógica grande se segmenta en subredes más pequeñas y manejables utilizando una máscara de subred (ej. <code>255.255.255.0</code>). Esto reduce el tráfico de difusión (broadcast), aísla fallos de red y mejora drásticamente los niveles de seguridad interna.</li>
+            </ul>
+
+            <h3>1.3 El Sistema de Nombres de Dominio (DNS - Domain Name System)</h3>
+            <p>Los seres humanos memorizan nombres alfanuméricos intuitivos (como <code>unah.edu.hn</code> o <code>google.com</code>), pero los enrutadores operan estrictamente con direcciones IP numéricas. El DNS actúa como la "agenda telefónica global de Internet" realizando esta traducción en milisegundos a través de una jerarquía de servidores raíz (Root Servers), servidores de dominio de nivel superior (TLD como <code>.com</code> o <code>.hn</code>) y servidores autoritativos.</p>
+
+            <div class="code-box">
+                > FLUJO DE RESOLUCIÓN DNS:<br>
+                1. Cliente solicita: "www.sitio-educativo.edu"<br>
+                2. Consulta al Servidor DNS Local (ISP o Router)<br>
+                3. Búsqueda en Servidores Raíz (Root Name Servers)<br>
+                4. Redirección al Servidor TLD (.edu) y Servidor Autoritativo final<br>
+                5. Respuesta devuelta al Cliente: IP 172.217.14.206 (Conexión establecida)
+            </div>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- SECCIÓN 2: ARQUITECTURA CLIENTE-SERVIDOR Y MODELOS OSI / TCP-IP   -->
+        <!-- ================================================================= -->
+        <div class="card">
+            <h2>2. Arquitectura de Red, Modelo Cliente-Servidor y Modelos de Capas (OSI / TCP-IP)</h2>
+            <p>Para que dispositivos informáticos de diferentes marcas, arquitecturas y sistemas operativos puedan comunicarse sin conflictos, la industria tecnológica estandarizó los procesos de comunicación mediante modelos por capas y arquitecturas distribuidas.</p>
+
+            <h3>2.1 Paradigma Cliente-Servidor vs. Redes Peer-to-Peer (P2P)</h3>
+            <ul>
+                <li><strong>Arquitectura Cliente-Servidor:</strong> Modelo centralizado donde los clientes (computadoras, navegadores, smartphones) realizan peticiones de recursos o servicios, y los servidores (computadoras de alto rendimiento que operan 24/7) procesan dichas solicitudes, almacenan bases de datos y devuelven respuestas estructuradas.</li>
+                <li><strong>Redes Peer-to-Peer (P2P):</strong> Arquitectura descentralizada donde cada nodo de la red actúa simultáneamente como cliente y como servidor, compartiendo recursos directamente sin necesidad de un servidor central intermediario (ej. redes de intercambio de archivos BitTorrent).</li>
+            </ul>
+
+            <h3>2.2 Modelo OSI (Open Systems Interconnection - 7 Capas)</h3>
+            <p>Marco de referencia teórico creado por la ISO para conceptualizar cómo viaja la información estructurándola en 7 niveles independientes:</p>
+            <ul>
+                <li><strong>Capa 1 - Física:</strong> Transmisión de bits crudos a través de medios físicos (cables de red UTP Cat6, fibra óptica, ondas de radio Wi-Fi).</li>
+                <li><strong>Capa 2 - Enlace de Datos:</strong> Control de acceso al medio y direccionamiento físico mediante direcciones MAC e identificación de tramas.</li>
+                <li><strong>Capa 3 - Red:</strong> Direccionamiento lógico global (IP) y selección de la mejor ruta de transporte de paquetes entre redes distintas (Routers).</li>
+                <li><strong>Capa 4 - Transporte:</strong> Garantía de entrega de datos, control de flujo y corrección de errores mediante protocolos fundamentales como TCP y UDP.</li>
+                <li><strong>Capa 5 - Sesión:</strong> Apertura, mantenimiento y cierre de las sesiones de comunicación interactiva entre aplicaciones distribuidas.</li>
+                <li><strong>Capa 6 - Presentación:</strong> Traducción, compresión, sintaxis de datos y cifrado/descifrado de la información legible para el usuario.</li>
+                <li><strong>Capa 7 - Aplicación:</strong> Interfaz directa de software donde operan los protocolos de usuario final (HTTP, FTP, SMTP, DNS).</li>
+            </ul>
+
+            <h3>2.3 Modelo TCP/IP (El Estándar Práctico de Internet - 4 Capas)</h3>
+            <p>Modelo real simplificado que fusiona las capas del modelo OSI para adaptarlas a la implementación operativa de Internet: <strong>1. Acceso a Red</strong> (Física y Enlace), <strong>2. Internet</strong> (Capa de Red IP), <strong>3. Transporte</strong> (TCP/UDP) y <strong>4. Aplicación</strong> (Servicios web y correo).</p>
+
+         <!-- SECCIÓN 2 -->
+            <h2> Arquitectura de Red, Modelo Cliente-Servidor y Modelos de Capas (OSI / TCP-IP)</h2>
+            <p>...</p>
+
+            <!-- Imagen del Modelo OSI/TCP-IP -->
+            <figure class="hero-figure">
+                <img src="https://blogger.googleusercontent.com/img/a/AVvXsEg8KwBXy6vRWBIpP2CNkvOlDa7LlCvyitOdkKAZ87sFfFlMG6QJYdBSfV7qJX3lohslA7DEcMVLn0JAZgbBHqYqb6UQ4UTQLUHUiL9AbyGj8xmNKYKWOnda0RKEdPCkAixInNWDeBeBfTLMW1-xD7RtTstV01QpXPos2MoIB7mTjL2-iJxzFy-CGptE8g" alt="Diagrama de capas OSI y TCP/IP" class="hero-image">
+                <figcaption>Representación gráfica de los modelos OSI y TCP/IP.</figcaption>
+            </figure>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- SECCIÓN 3: ANATOMÍA DE INTERNET, ROUTING Y CONMUTACIÓN            -->
+        <!-- ================================================================= -->
+        <div class="card">
+            <h2>3. Anatomía de Internet, Ruteo de Paquetes y Conmutación de Tráfico</h2>
+            <p>Internet no es una estructura monolítica, sino un "sistema de sistemas autónomos" interconectados a escala planetaria. La información digital nunca viaja en un flujo continuo de principio a fin, sino que experimenta un proceso físico y lógico sumamente dinámico.</p>
+
+            <h3>3.1 Conmutación de Paquetes (Packet Switching)</h3>
+            <p>En lugar de mantener un circuito telefónico dedicado (como las redes analógicas antiguas), la información digital se divide en pequeños bloques normalizados llamados <strong>paquetes</strong>. Cada paquete contiene la cabecera con la dirección de origen, destino y número de secuencia. Viajan por rutas independientes y cambiantes a través de la red, y al llegar al equipo receptor, el protocolo de transporte los reensambla en su orden correcto.</p>
+
+            <h3>3.2 Enrutamiento (Routing) y Protocolos de Pasarela</h3>
+            <ul>
+                <li><strong>Routers (Enrutadores):</strong> Dispositivos inteligentes de la capa de red que conectan redes heterogéneas. Analizan las cabeceras IP de los paquetes entrantes y toman decisiones de reenvío basadas en tablas de rutas dinámicas (Salto a Salto u Hop-by-Hop).</li>
+                <li><strong>Protocolos de Enrutamiento IGP y EGP:</strong> Protocolos como <em>OSPF</em> (Open Shortest Path First, utilizado dentro de una misma organización) y <em>BGP</em> (Border Gateway Protocol, el protocolo troncal que rige las interconexiones globales entre los grandes proveedores de Internet o ISPs).</li>
+                <li><strong>Backbone Global de Internet:</strong> Infraestructura masiva de cables submarinos de fibra óptica transoceánica y centros de intercambio de datos (IXP - Internet Exchange Points) operados por operadores de Nivel 1 (Tier 1).</li>
+            </ul>
+           <!-- SECCIÓN 3 -->
+            <h2>3. Anatomía de Internet, Ruteo de Paquetes y Conmutación de Tráfico</h2>
+            <p>...</p>
+
+            <!-- Imagen de Conmutación de Paquetes -->
+            <figure class="hero-figure">
+                <img src="https://s3.amazonaws.com/s3.timetoast.com/public/uploads/photo/14177114/image/b2d0f92cd4bff0c092610c877932d802" alt="Esquema de conmutación de paquetes" class="hero-image">
+                <figcaption>Los paquetes viajan por diferentes rutas hasta llegar al destino.</figcaption>
+            </figure>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- SECCIÓN 4: PROTOCOLOS WEB, HTTP/HTTPS Y CRIPTOGRAFÍA SSL/TLS      -->
+        <!-- ================================================================= -->
+        <div class="card">
+            <h2>4. Protocolos Web: HTTP vs. HTTPS y Criptografía Avanzada SSL/TLS</h2>
+            <p>La capa de aplicación es la encargada de gestionar la interacción directa con el usuario a través de navegadores web. La diferencia fundamental en la ciberseguridad actual radica en cómo se transfiere esta información entre el cliente y el servidor web.</p>
+
+            <h3>4.1 HTTP (Hypertext Transfer Protocol - Puerto 80)</h3>
+            <p>Es el protocolo fundacional de la Web desarrollado por Tim Berners-Lee. Su principal limitación crítica es que transmite todos los mensajes, credenciales de usuario (contraseñas) y formularios en formato de <strong>texto plano (Plain Text)</strong>. Cualquier atacante con herramientas de escucha de red (Sniffers como Wireshark) en una red pública puede interceptar y leer toda la información fácilmente.</p>
+
+            <h3>4.2 HTTPS (Hypertext Transfer Protocol Secure - Puerto 443)</h3>
+            <p>Versión blindada de HTTP que integra protocolos criptográficos avanzados para garantizar tres pilares de la seguridad informática: <em>Confidencialidad</em> (nadie puede leer los datos interceptados), <em>Integridad</em> (los datos no pueden ser alterados en tránsito) y <em>Autenticidad</em> (se verifica que el servidor web sea legítimo mediante certificados digitales emitidos por Autoridades de Certificación confiables).</p>
+
+            <h3>4.3 El Proceso de Negociación: Handshake TLS 1.3</h3>
+            <p>Secuencia de pasos criptográficos iniciales que ejecuta el navegador antes de descargar una página web segura:</p>
+            <ul>
+                <li><strong>1. Client Hello / Server Hello:</strong> El navegador y el servidor acuerdan las versiones de cifrado y algoritmos matemáticos compatibles.</li>
+                <li><strong>2. Intercambio de Certificados:</strong> El servidor presenta su certificado digital oficial firmado por una entidad certificadora de confianza.</li>
+                <li><strong>3. Generación de Claves Simétricas:</strong> Ambas partes generan claves criptográficas únicas y temporales de sesión mediante intercambio Diffie-Hellman para cifrar todo el tráfico posterior con altísima velocidad y seguridad.</li>
+            </ul>
+
+            <div class="code-box">
+                > ESTADO DEL SISTEMA DE RED:<br>
+                - Protocolo de Transporte: TCP (Confiable, orientado a conexión)<br>
+                - Protocolo de Seguridad Web: HTTPS (Puerto 443 activo)<br>
+                - Cifrado Criptográfico: TLS 1.3 con AES_256_GCM<br>
+                - Estado de la Conexión: [ 100% SEGURO Y VERIFICADO ]
+            </div>
+        </div>
+
+
+        <div class="card">
+            <h2>5. Dispositivos de red y medios de transmisión</h2>
+            <p>Una red de computadoras necesita distintos dispositivos para conectar equipos, dirigir el tráfico y proporcionar acceso a los servicios. Cada dispositivo cumple una función diferente dentro de la infraestructura.</p>
+
+            <div class="info-grid">
+                <div class="info-box">
+                    <h4>Switch</h4>
+                    <p>Conecta varios dispositivos dentro de una red local (LAN) y utiliza direcciones MAC para enviar las tramas hacia el puerto correspondiente.</p>
+                </div>
+                <div class="info-box">
+                    <h4>Router</h4>
+                    <p>Interconecta redes diferentes y decide por qué ruta deben avanzar los paquetes IP para llegar a su destino.</p>
+                </div>
+                <div class="info-box">
+                    <h4>Access Point</h4>
+                    <p>Permite que dispositivos inalámbricos se incorporen a una red mediante Wi-Fi y se comuniquen con la infraestructura cableada.</p>
+                </div>
+                <div class="info-box">
+                    <h4>Módem</h4>
+                    <p>Adapta la comunicación entre la red local y la tecnología utilizada por el proveedor de Internet para proporcionar conectividad.</p>
+                </div>
+            </div>
+
+            <h3>5.1 Medios de transmisión</h3>
+            <ul>
+                <li><strong>Cable UTP:</strong> medio de cobre muy utilizado en redes Ethernet por su bajo costo y facilidad de instalación.</li>
+                <li><strong>Fibra óptica:</strong> transmite información mediante pulsos de luz y permite altas velocidades y grandes distancias con baja pérdida.</li>
+                <li><strong>Wi-Fi:</strong> utiliza ondas de radio para conectar dispositivos sin necesidad de un cable físico.</li>
+            </ul>
+
+            <div class="note"><strong>Ejemplo práctico:</strong> en una red doméstica, el teléfono y la computadora pueden conectarse por Wi-Fi al router, mientras que otros equipos pueden utilizar Ethernet. El router sirve como punto de conexión entre la red local y otras redes, incluido Internet.</div>
+
+             <h2>5. Dispositivos de red y medios de transmisión</h2>
+    <p>...</p>
+
+    <!-- Imagen de dispositivos de red -->
+    <figure class="hero-figure">
+        <img src="https://tse2.mm.bing.net/th/id/OIP.4Wn119UKMW1YU6rr9YjDywHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Router, switch y access point" class="hero-image">
+        <figcaption>Principales dispositivos que conforman una red.</figcaption>
+    </figure>
+        </div>
+
+        <div class="card">
+            <h2>6. Puertos, TCP y UDP</h2>
+            <p>Las direcciones IP identifican dispositivos en una red, pero una computadora puede ejecutar muchos servicios al mismo tiempo. Los <strong>puertos</strong> permiten identificar qué servicio o aplicación debe recibir los datos.</p>
+
+            <h3>6.1 Puertos conocidos</h3>
+            <ul>
+                <li><strong>HTTP — puerto 80:</strong> comunicación web sin cifrado.</li>
+                <li><strong>HTTPS — puerto 443:</strong> comunicación web protegida mediante TLS.</li>
+                <li><strong>DNS — puerto 53:</strong> resolución de nombres de dominio.</li>
+                <li><strong>SSH — puerto 22:</strong> administración remota segura.</li>
+                <li><strong>FTP — puertos 20/21:</strong> transferencia de archivos mediante el protocolo FTP.</li>
+            </ul>
+
+            <h3>6.2 TCP frente a UDP</h3>
+            <p><strong>TCP</strong> establece una comunicación orientada a conexión y comprueba la entrega y el orden de los datos. <strong>UDP</strong> reduce la sobrecarga y no establece una conexión de la misma manera, por lo que resulta útil cuando la rapidez es prioritaria, como en ciertos servicios multimedia, juegos y comunicaciones en tiempo real.</p>
+        </div>
+
+        <div class="card">
+            <h2>7. Seguridad básica en redes</h2>
+            <p>La conectividad también introduce riesgos. Una red segura debe proteger los equipos, las credenciales y la información que circula entre los dispositivos.</p>
+
+            <h3>7.1 Principios fundamentales</h3>
+            <ul>
+                <li><strong>Confidencialidad:</strong> solo las personas autorizadas deben poder acceder a la información.</li>
+                <li><strong>Integridad:</strong> los datos deben mantenerse correctos y no ser modificados sin autorización.</li>
+                <li><strong>Disponibilidad:</strong> los servicios y recursos deben permanecer accesibles cuando sean necesarios.</li>
+            </ul>
+
+            <h3>7.2 Medidas recomendadas</h3>
+            <ul>
+                <li>Utilizar contraseñas largas y únicas.</li>
+                <li>Mantener actualizado el sistema operativo y el software de red.</li>
+                <li>Activar cifrado y HTTPS cuando esté disponible.</li>
+                <li>Proteger la red Wi-Fi con una configuración de seguridad moderna.</li>
+                <li>Evitar introducir contraseñas en sitios web que no utilicen HTTPS.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>8. Conceptos complementarios: LAN, WAN, Internet e Intranet</h2>
+            <ul>
+                <li><strong>LAN (Local Area Network):</strong> red que cubre un área limitada, como una casa, laboratorio u oficina.</li>
+                <li><strong>WAN (Wide Area Network):</strong> red que conecta redes a grandes distancias geográficas.</li>
+                <li><strong>Internet:</strong> conjunto mundial de redes interconectadas que utilizan protocolos comunes para comunicarse.</li>
+                <li><strong>Intranet:</strong> red privada que utiliza tecnologías similares a Internet, pero restringida a una organización.</li>
+            </ul>
+
+            <p>Comprender estas diferencias permite analizar una red desde distintos niveles: los dispositivos físicos, el direccionamiento, los protocolos, los servicios y las medidas de seguridad trabajan conjuntamente para transportar información desde un origen hasta un destino.</p>
+        </div>
+
+        <div class="card">
+            <h2>9. Ejemplo de recorrido de una página web</h2>
+            <p>Cuando un usuario escribe una dirección web en el navegador, intervienen varios procesos antes de que aparezca la página:</p>
+            <ol style="margin-left:25px; margin-bottom:16px;">
+                <li>El navegador identifica el dominio solicitado.</li>
+                <li>El sistema consulta DNS para obtener la dirección IP asociada.</li>
+                <li>El dispositivo establece la comunicación con el servidor correspondiente.</li>
+                <li>Si se utiliza HTTPS, se realiza la negociación TLS para proteger la comunicación.</li>
+                <li>El navegador envía una solicitud HTTP y recibe la respuesta del servidor.</li>
+                <li>El navegador interpreta los recursos recibidos y muestra la página al usuario.</li>
+            </ol>
+            <div class="code-box">
+                > RESUMEN DEL RECORRIDO:<br>
+                DOMINIO → DNS → IP → ROUTER → INTERNET → SERVIDOR → HTTPS/TLS → RESPUESTA → NAVEGADOR
+            </div>
+        </div>
+
+        <footer>
+            <p>Enciclopedia Académica de Redes &copy; 2026 - Módulo de Formación Técnica en Informática.</p>
+        </footer>
+
+    </div>
+
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const paginaActual = decodeURIComponent(window.location.pathname.split("/").pop());
+    const botonesMenu = document.querySelectorAll(".nav-item");
+
+    botonesMenu.forEach((boton) => {
+      boton.classList.remove("active");
+      const enlaceDestino = decodeURIComponent(boton.getAttribute("href").split("/").pop());
+
+      if (paginaActual === enlaceDestino && enlaceDestino !== "") {
+        boton.classList.add("active");
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

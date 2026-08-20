@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 2: Sistemas Operativos</title>
+    <style>
+
+/*INICIO STYLE NAV*/
+
+/* ========================================================= */
+/* ESTILOS DEL NAVEGADOR FUTURISTA (FIJO Y A PANTALLA COMPLETA) */
+/* ========================================================= */
+:root {
+  --bg-dark: #03060d;
+  --card-bg: rgba(8, 14, 28, 0.85);
+  --neon-cyan: #00f3ff;
+  --neon-magenta: #ff0055;
+  --text-main: #e0e6ed;
+}
+
+/* Limpieza de márgenes para asegurar cobertura de borde a borde */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* BARRA DE NAVEGACIÓN FIJA Y EXTENDIDA */
+.navbar-futurista {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  background: rgba(3, 6, 13, 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 2px solid var(--neon-cyan);
+  box-shadow: 0 4px 30px rgba(0, 243, 255, 0.3);
+
+  /* REGLAS PARA MANTENERLO FIJO A PANTALLA COMPLETA */
+  position: fixed;        /* Lo congela arriba permanentemente al hacer scroll */
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;            /* Abarca todo el ancho de la pantalla */
+  box-sizing: border-box; /* Previene scroll horizontal indeseado */
+  z-index: 9999;          /* Se mantiene por encima de cualquier otro elemento */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  height: 75px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 18px var(--neon-cyan), inset 0 0 10px rgba(0, 243, 255, 0.3);
+  padding: 4px;
+  background: rgba(0, 243, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.nav-logo:hover {
+  border-color: var(--neon-magenta);
+  box-shadow: 0 0 25px var(--neon-magenta), inset 0 0 12px rgba(255, 0, 85, 0.4);
+  transform: scale(1.04);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #a0aec0;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 243, 255, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item:hover {
+  color: #ffffff;
+  background: rgba(0, 243, 255, 0.18);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 15px var(--neon-cyan);
+  transform: translateY(-2px);
+}
+
+/* BRILLO Y DEGRADADO DE LA PESTAÑA ACTIVA */
+.nav-item.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(0, 243, 255, 0.4), rgba(255, 0, 85, 0.4));
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 20px var(--neon-cyan);
+}
+
+@media (max-width: 850px) {
+  .nav-logo { height: 55px; }
+}
+
+/*FIN STYLE NAV*/
+
+        /* === CONFIGURACIÓN GENERAL Y PALETA DE COLORES === */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #030508;
+            color: #b0bec5;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+        }
+
+        /* === SECCIÓN HERO (ENCABEZADO DE IMPACTO) === */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(0, 243, 255, 0.08) 0%, rgba(3, 5, 8, 0.95) 70%),
+                        linear-gradient(rgba(3, 5, 8, 0.8), rgba(3, 5, 8, 0.9)),
+                        url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        .hero h1 {
+            color: #ffffff;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.8), 0 0 30px rgba(0, 243, 255, 0.4);
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #00f3ff;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+        }
+
+        /* === TARJETAS / CAJAS CON EFECTO Y BORDES === */
+        .card {
+            background: #080d14;
+            border: 1px solid rgba(0, 243, 255, 0.15);
+            border-radius: 8px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            
+            /* Animación de entrada al hacer scroll */
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            border-color: rgba(0, 243, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
+        }
+
+        /* === ESTILOS DE TÍTULOS CON LÍNEA INDICADORA === */
+        h2 {
+            color: #ffffff;
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 24px;
+            background-color: #00f3ff;
+            box-shadow: 0 0 8px #00f3ff;
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+
+        h3 {
+            color: #ff0055;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 8px rgba(255, 0, 85, 0.4);
+        }
+
+        p {
+            color: #b0bec5;
+            margin-bottom: 15px;
+            font-size: 0.98rem;
+        }
+
+        strong {
+            color: #ffffff;
+        }
+
+        /* === LISTAS === */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            color: #b0bec5;
+        }
+
+        ul li::before {
+            content: '▪';
+            position: absolute;
+            left: 0;
+            color: #00f3ff;
+            text-shadow: 0 0 5px #00f3ff;
+        }
+
+        /* === ESTRUCTURA GRID E IMÁGENES === */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .img-box {
+            width: 100%;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .img-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .img-box:hover img {
+            transform: scale(1.03);
+        }
+
+        /* === CUADROS DESTACADOS (CALLOUTS Y FUNCIONES) === */
+        .callout {
+            background: rgba(255, 0, 85, 0.05);
+            border-left: 3px solid #ff0055;
+            padding: 20px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 25px;
+        }
+
+        .callout-title {
+            color: #ff0055;
+            font-weight: bold;
+            margin-bottom: 6px;
+            text-shadow: 0 0 5px rgba(255, 0, 85, 0.5);
+        }
+
+        .grid-functions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .func-box {
+            background: #05080d;
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            border-radius: 6px;
+            padding: 18px;
+            transition: border-color 0.3s ease;
+        }
+
+        .func-box:hover {
+            border-color: rgba(0, 243, 255, 0.3);
+        }
+
+        .func-title {
+            color: #00f3ff;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        /* === TABLAS === */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: #05080d;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: rgba(0, 243, 255, 0.08);
+            color: #00f3ff;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        tr:hover td {
+            background-color: rgba(255, 0, 85, 0.03);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #546e7a;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar-futurista">
+    <div class="logo-container">
+      <a href="index.html">
+        <img src="logo.jpg" alt="Logo Tech" class="nav-logo">
+      </a>
+    </div>
+    
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-item">Hardware</a></li>
+      <li><a href="2.Sistemas.html" class="nav-item">Sistemas Operativos</a></li>
+      <li><a href="3.Redes.html" class="nav-item">Redes e Internet</a></li>
+      <li><a href="4.Cyberseguridad.html" class="nav-item">Ciberseguridad</a></li>
+      <li><a href="5.lenguajespro.html" class="nav-item">Software</a></li>
+    
+    </ul>
+  </nav>
+
+    <!-- HERO DE ENCABEZADO -->
+    <header class="hero">
+        <h1>SISTEMAS OPERATIVOS</h1>
+        <p>Arquitectura y Gestión de Recursos Digitales</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- TARJETA 1: CONCEPTO -->
+        <section class="card">
+            <h2>1. ¿Qué es un Sistema Operativo?</h2>
+            
+            <div class="content-grid">
+                <div>
+                    <p>Un <strong>Sistema Operativo (SO)</strong> es el software principal o conjunto de programas fundamentales que gestiona el hardware de una computadora o dispositivo móvil, sirviendo como intermediario entre los componentes físicos (CPU, memoria, disco) y las aplicaciones ejecutadas por el usuario final.</p>
+                    <p>Sin el Sistema Operativo, una computadora sería un conjunto de componentes inanimados, ya que este proporciona la interfaz de interacción, administra los recursos del sistema y garantiza la ejecución segura y coordinada de múltiples tareas simultáneas.</p>
+                </div>
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Sistema Operativo e Interfaz Digital">
+                </div>
+            </div>
+
+            <div class="callout">
+                <div class="callout-title">⚡ Rol Clave del Sistema Operativo</div>
+                <p style="margin: 0;">Actúa como un <i>administrador de recursos</i> que decide qué programas tienen acceso a qué recursos físicos y en qué momento, optimizando el rendimiento y protegiendo el sistema contra fallos de ejecución.</p>
+            </div>
+        </section>
+
+        <!-- TARJETA 2: FUNCIONES AMPLIADAS -->
+        <section class="card">
+            <h2>2. Funciones Principales del Sistema Operativo</h2>
+            <p>Los sistemas operativos modernos desempeñan actividades críticas divididas en los siguientes pilares de gestión:</p>
+
+            <div class="grid-functions">
+                <div class="func-box">
+                    <div class="func-title">🖥️ Gestión del Procesador</div>
+                    <p>Administra la asignación de tiempo del procesamiento (CPU) entre múltiples procesos activados mediante algoritmos multitarea.</p>
+                </div>
+                <div class="func-box">
+                    <div class="func-title">🧠 Gestión de Memoria RAM</div>
+                    <p>Asigna y libera espacio de memoria principal para cada programa en ejecución, previniendo invasiones de memoria.</p>
+                </div>
+                <div class="func-box">
+                    <div class="func-title">💾 Gestión de Almacenamiento</div>
+                    <p>Organiza los datos en archivos y directorios en discos SSD/HDD, controlando el acceso, lectura y escrituras.</p>
+                </div>
+                <div class="func-box">
+                    <div class="func-title">🔌 Gestión de Dispositivos</div>
+                    <p>Utiliza controladores (drivers) para facilitar la comunicación entre el sistema y periféricos como teclado, mouse o monitor.</p>
+                </div>
+            </div>
+
+            <div class="content-grid" style="margin-top: 25px;">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80" alt="Seguridad y Control de Recursos">
+                </div>
+                <div>
+                    <h3>Otras Funciones Cruciales</h3>
+                    <ul>
+                        <li><strong>Interfaz de Usuario (GUI / CLI):</strong> Proporciona un entorno gráfico intuitivo (ventanas, botones) o una línea de comandos para interactuar directamente con el sistema.</li>
+                        <li><strong>Seguridad y Control de Acceso:</strong> Autentica usuarios, cifra credenciales y otorga privilegios diferenciados para proteger archivos del sistema contra accesos no autorizados.</li>
+                        <li><strong>Gestión de Errores y Diagnóstico:</strong> Detecta fallos en el hardware o en el código de las aplicaciones e informa al usuario sin comprometer la estabilidad global de la máquina.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- TARJETA 3: ESTADOS Y GESTIÓN DE PROCESOS -->
+        <section class="card">
+            <h2>3. Ciclo de Vida de un Proceso en el SO</h2>
+            <p>Un proceso es un programa en ejecución. El sistema operativo se encarga de alternar constantemente el estado de cada proceso para lograr un rendimiento fluido:</p>
+
+            <div class="content-grid">
+                <div>
+                    <ul>
+                        <li><strong>Nuevo (Nuevo):</strong> El programa está siendo cargado en la memoria RAM desde el disco duro/SSD.</li>
+                        <li><strong>Listo (Ready):</strong> El proceso está en espera de que el planificador de la CPU le asigne tiempo de procesamiento.</li>
+                        <li><strong>En Ejecución (Running):</strong> Las instrucciones del programa están siendo procesadas activamente por la CPU.</li>
+                        <li><strong>Bloqueado / Espera (Waiting):</strong> El proceso espera un evento externo, como la lectura de un archivo o entrada del usuario.</li>
+                        <li><strong>Terminado (Terminated):</strong> El programa ha finalizado y el SO libera la memoria RAM asignada.</li>
+                    </ul>
+                </div>
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" alt="Gestión de Procesos en Código">
+                </div>
+            </div>
+        </section>
+
+        <!-- TARJETA 4: TABLA COMPARATIVA -->
+        <section class="card">
+            <h2>4. Comparativa de Sistemas Operativos: Escritorio vs. Móvil</h2>
+            <p>Análisis de las plataformas más importantes del mercado global:</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sistema Operativo</th>
+                            <th>Tipo / Entorno</th>
+                            <th>Kernel / Licencia</th>
+                            <th>Ventajas Principales</th>
+                            <th>Uso Predominante</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong style="color: #00f3ff;">Windows</strong></td>
+                            <td>Escritorio / Laptop</td>
+                            <td>Windows NT (Propietario)</td>
+                            <td>Compatibilidad masiva con software y videojuegos, interfaz familiar.</td>
+                            <td>Hogares, oficinas, PC Gaming, empresas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #00f3ff;">macOS</strong></td>
+                            <td>Escritorio / Laptop</td>
+                            <td>XNU / Unix (Propietario)</td>
+                            <td>Estabilidad extrema, optimización de hardware, ecosistema integrado.</td>
+                            <td>Diseño gráfico, edición de video, desarrollo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #00f3ff;">Linux</strong></td>
+                            <td>Escritorio / Servidor</td>
+                            <td>Linux (Código Abierto)</td>
+                            <td>Seguridad alta, personalización completa, consumo mínimo de recursos.</td>
+                            <td>Servidores, ciberseguridad, programación.</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #00f3ff;">Android</strong></td>
+                            <td>Móvil / Tablet</td>
+                            <td>Basado en Linux (Código Abierto)</td>
+                            <td>Catálogo gigantesco de apps, personalización, diversidad de marcas.</td>
+                            <td>Smartphones, Smart TVs, tabletas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #00f3ff;">iOS</strong></td>
+                            <td>Móvil / Tablet</td>
+                            <td>Darwin / Unix (Propietario)</td>
+                            <td>Seguridad estricta, rendimiento fluido, alto valor de reventa.</td>
+                            <td>Dispositivos móviles exclusivos de Apple.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TARJETA 5: KERNEL Y SISTEMAS DE ARCHIVOS -->
+        <section class="card">
+            <h2>5. Arquitectura del Kernel y Sistemas de Archivos</h2>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Tipos de Núcleos (Kernel)</h3>
+                    <ul>
+                        <li><strong>Kernel Monolítico:</strong> Todos los servicios del sistema (controladores, gestión de memoria, archivos) se ejecutan dentro del núcleo. Ejemplo: <i>Linux, Android</i>.</li>
+                        <li><strong>Microkernel:</strong> Solo las funciones indispensables residen en el núcleo; el resto corre en espacio de usuario de forma aislada. Ejemplo: <i>QNX, Symbian</i>.</li>
+                        <li><strong>Kernel Híbrido:</strong> Combina la rapidez monolítica con la arquitectura modular del microkernel. Ejemplo: <i>Windows NT, macOS (XNU)</i>.</li>
+                    </ul>
+                </div>
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=800&q=80" alt="Arquitectura de Sistemas y Programación">
+                </div>
+            </div>
+
+            <h3>Sistemas de Archivos Populares</h3>
+            <p>Un sistema de archivos determina cómo el SO organiza y recupera la información en las unidades de disco:</p>
+            <ul>
+                <li><strong>NTFS (Windows):</strong> Soporta permisos avanzados de acceso, cifrado y recuperación de errores.</li>
+                <li><strong>ext4 (Linux):</strong> Eficiente, rápido y optimizado para el manejo masivo de archivos pequeños y grandes.</li>
+                <li><strong>APFS (Apple):</strong> Diseñado específicamente para unidades de estado sólido (SSD) con cifrado nativo.</li>
+                <li><strong>FAT32 / exFAT:</strong> Formatos universales altamente compatibles entre diferentes marcas de hardware.</li>
+            </ul>
+        </section>
+
+        <!-- PIE DE PÁGINA -->
+        <footer>
+            <p>© 2026 GUÍA WEB</p>
+        </footer>
+
+    </div>
+
+    <!-- SCRIPT PARA EL DINAMISMO AL HACER SCROLL -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cards = document.querySelectorAll(".card");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, {
+                threshold: 0.15
+            });
+
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const paginaActual = decodeURIComponent(window.location.pathname.split("/").pop());
+    const botonesMenu = document.querySelectorAll(".nav-item");
+
+    botonesMenu.forEach((boton) => {
+      boton.classList.remove("active");
+      const enlaceDestino = decodeURIComponent(boton.getAttribute("href").split("/").pop());
+
+      if (paginaActual === enlaceDestino && enlaceDestino !== "") {
+        boton.classList.add("active");
+      }
+    });
+  });
+</script>
+</body>
+</html>

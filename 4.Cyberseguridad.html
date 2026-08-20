@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ciberseguridad y Protección de Datos</title>
+
+    
+     
+     <style>
+
+/*INICIO STYLE NAV*/
+/* ========================================================= */
+/* ESTILOS DEL NAVEGADOR FUTURISTA (FIJO Y A PANTALLA COMPLETA) */
+/* ========================================================= */
+:root {
+  --bg-dark: #03060d;
+  --card-bg: rgba(8, 14, 28, 0.85);
+  --neon-cyan: #00f3ff;
+  --neon-magenta: #ff0055;
+  --text-main: #e0e6ed;
+}
+
+/* Limpieza de márgenes para asegurar cobertura de borde a borde */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* BARRA DE NAVEGACIÓN FIJA Y EXTENDIDA */
+.navbar-futurista {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  background: rgba(3, 6, 13, 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 2px solid var(--neon-cyan);
+  box-shadow: 0 4px 30px rgba(0, 243, 255, 0.3);
+
+  /* REGLAS PARA MANTENERLO FIJO A PANTALLA COMPLETA */
+  position: fixed;        /* Lo congela arriba permanentemente al hacer scroll */
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;            /* Abarca todo el ancho de la pantalla */
+  box-sizing: border-box; /* Previene scroll horizontal indeseado */
+  z-index: 9999;          /* Se mantiene por encima de cualquier otro elemento */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  height: 75px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 18px var(--neon-cyan), inset 0 0 10px rgba(0, 243, 255, 0.3);
+  padding: 4px;
+  background: rgba(0, 243, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.nav-logo:hover {
+  border-color: var(--neon-magenta);
+  box-shadow: 0 0 25px var(--neon-magenta), inset 0 0 12px rgba(255, 0, 85, 0.4);
+  transform: scale(1.04);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #a0aec0;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 243, 255, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item:hover {
+  color: #ffffff;
+  background: rgba(0, 243, 255, 0.18);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 15px var(--neon-cyan);
+  transform: translateY(-2px);
+}
+
+/* BRILLO Y DEGRADADO DE LA PESTAÑA ACTIVA */
+.nav-item.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(0, 243, 255, 0.4), rgba(255, 0, 85, 0.4));
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 20px var(--neon-cyan);
+}
+
+@media (max-width: 850px) {
+  .nav-logo { height: 55px; }
+}
+
+
+/*FIN STYLE NAV*/
+
+        /* ==========================================
+   ESTILOS GENERALES Y FONDO CYBERPUNK
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+    background-color: #050811;
+    /* Patrón de ciberespacio tecnológico sutil de fondo */
+    background-image: linear-gradient(rgba(5, 8, 17, 0.9), rgba(5, 8, 17, 0.9)), 
+                      radial-gradient(circle, #00f3ff 1px, transparent 1px);
+    background-size: 100% 100%, 30px 30px;
+    color: #e0e6ed;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* ==========================================
+   ENCABEZADO Y PIE DE PÁGINA
+   ========================================== */
+header {
+    text-align: center;
+    padding: 40px 20px;
+    margin-bottom: 30px;
+}
+
+h1, h2 {
+    color: #00f3ff;
+    text-shadow: 0 0 10px #00f3ff;
+    margin-bottom: 15px;
+}
+
+header p {
+    color: #e0e6ed;
+    font-size: 1.1rem;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: #8b9bb4;
+    font-size: 0.9rem;
+}
+
+/* ==========================================
+   CONTENEDOR Y TARJETAS (GLASSMORPHISM)
+   ========================================== */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.card {
+    background: rgba(10, 15, 29, 0.75); /* Fondo semitransparente */
+    backdrop-filter: blur(10px);          /* Efecto cristal empañado */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 243, 255, 0.3); /* Borde luminoso sutil */
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto al pasar el cursor sobre las tarjetas */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.25);
+    border-color: #00f3ff;
+}
+
+/* ==========================================
+   ESTILO FORMAL Y COMPACTO PARA IMÁGENES
+   ========================================== */
+.card-img {
+    width: 50%;                  /* Hace la imagen más pequeña y elegante */
+    max-height: 290x;           /* Limita la altura máxima para mantener el orden */
+    
+    object-fit: contain;         /* Muestra la imagen completa sin recortarla */
+    object-position: center;     /* La centra perfectamente */
+    
+    display: block;              
+    margin: 15px auto;           /* Centra la imagen horizontalmente y le da espacio arriba/abajo */
+    
+    border-radius: 8px;          /* Esquinas sutilmente redondeadas */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Borde limpio y formal */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);   /* Sombra elegante para dar profundidad */
+    background-color: #050811;   /* Fondo interno neutro */
+    
+    filter: brightness(0.98) contrast(1.02);
+    transition: all 0.3s ease;
+}
+
+/* Efecto al pasar el mouse sobre la imagen */
+.card-img:hover {
+    transform: scale(1.02);
+    border-color: #00f3ff;
+    box-shadow: 0 6px 16px rgba(0, 243, 255, 0.2);
+}
+
+/* ==========================================
+   TIPOGRAFÍA Y LISTAS DENTRO DE LAS TARJETAS
+   ========================================== */
+p {
+    color: #e0e6ed;
+    margin-bottom: 15px;
+}
+
+ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+li {
+    color: #e0e6ed;
+    margin-bottom: 8px;
+}
+
+strong {
+    color: #00f3ff;
+}
+
+    </style>
+
+
+
+</head>
+<body>
+
+<nav class="navbar-futurista">
+    <div class="logo-container">
+      <a href="index.html">
+        <img src="logo.jpg" alt="Logo Tech" class="nav-logo">
+      </a>
+    </div>
+    
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-item">Hardware</a></li>
+      <li><a href="2.Sistemas.html" class="nav-item">Sistemas Operativos</a></li>
+      <li><a href="3.Redes.html" class="nav-item">Redes e Internet</a></li>
+      <li><a href="4.Cyberseguridad.html" class="nav-item">Ciberseguridad</a></li>
+      <li><a href="5.lenguajespro.html" class="nav-item">Software</a></li>
+    
+    </ul>
+  </nav>
+
+    <header>
+        <br>
+        <br>
+        <br>
+        <h1>Ciberseguridad y Protección de Datos</h1>
+        <p>Tema 4: Protege tu información en el entorno digital</p>
+    </header>
+
+    <main class="container">
+        <!-- Tarjeta 1: Amenazas -->
+        <section class="card">
+            <h2>Principales Amenazas</h2>
+            <p>El ecosistema digital está expuesto a diversos peligros informáticos que buscan robar información o dañar sistemas:</p>
+            <ul>
+                <li><strong>Malware:</strong> El malware suele ingresar al sistema aprovechando vulnerabilidades de seguridad o engañando al usuario para que lo descargue o ejecute (por ejemplo, a través de correos electrónicos fraudulentos, descargas de sitios web poco seguros o memorias USB infectadas). Una vez dentro, puede realizar múltiples acciones
+                <img src="https://www.inabaweb.com/wp-content/uploads/2023/04/Que-es-Malware.png" alt="Ciberseguridad y amenazas" class="card-img"></li>
+
+                <li><strong>Phishing:</strong> es una de las técnicas de ingeniería social más utilizadas por los ciberdelincuentes. Consiste en un fraude en línea donde el atacante se hace pasar por una persona, empresa o institución de confianza (como un banco, una red social o una entidad gubernamental) con el objetivo de engañar a la víctima y robar información confidencial.
+                <img src="https://neuquennews.com.ar/download/multimedia.normal.8d091faf58741ea4.ZmM4MjJjYTMtNDk3MC00MTNmLTk3ODMtNDEyMTVhMTFfbm9ybWFsLndlYnA%3D.webp" alt="Ciberseguridad y amenazas" class="card-img"></li>
+
+                <li><strong>Ransomware:</strong> (también conocido como secuestro de datos) es uno de los ataques cibernéticos más destructivos y temidos en la actualidad. Como bien tienes definido en tu código: es un código malicioso que bloquea o cifra los archivos de la víctima exigiendo un rescate económico a cambio de liberarlos</li>
+                <img src="https://www.bitlyft.com/hubfs/Ransomware-Attack-Header.jpg" alt="Ciberseguridad y amenazas" class="card-img">
+            </ul>
+        </section>
+
+        <!-- Tarjeta 2: Encriptado -->
+        <section class="card">
+            <h2>Encriptado de Datos</h2>
+            <p>El cifrado o encriptado transforma la información legible en un código secreto ilegible utilizando algoritmos matemáticos complejos. Solo las partes autorizadas que poseen la clave correcta pueden descifrar y leer los datos, garantizando su confidencialidad tanto en tránsito como en almacenamiento.</p>
+            <img src="https://thumbs.dreamstime.com/b/digital-file-encryption-some-documents-being-encrypted-safely-transmitted-illustration-191539482.jpg" alt="Ciberseguridad y amenazas" class="card-img"></li>
+        </section>
+
+
+        <!-- Tarjeta 3: 2FA -->
+        <section class="card">
+            <h2>Autenticación de 2 Factores (2FA)</h2>
+            <p>La verificación en dos pasos añade una capa extra de seguridad más allá de la contraseña tradicional. Para iniciar sesión, se requiere una combinación de dos elementos diferentes: algo que sabes (clave), algo que tienes (un código en tu teléfono o aplicación autenticadora) o algo que eres (huella dactilar).</p>
+            <img src="https://abdc.es/wp-content/uploads/2025/06/Autenticacion-de-dos-fases.png" alt="Ciberseguridad y amenazas" class="card-img">
+        </section>
+
+
+        <!-- Tarjeta 4: Consejos -->
+        <section class="card">
+            <h2>Consejos de Navegación Segura</h2>
+            <p>Adopta estos hábitos esenciales para mantenerte a salvo en la red:</p>
+            <ul>
+                <li>Verifica que las páginas web inicien con <strong>https://</strong> y muestren el icono de un candado.</li>
+                <li>Evita hacer clic en enlaces sospechosos recibidos por correo o mensajes de texto desconocidos.</li>
+                <li>Utiliza contraseñas robustas y únicas combinando letras, números y símbolos.</li>
+                <li>Mantén tu sistema operativo y aplicaciones siempre actualizados.</li>
+                <img src="https://media.licdn.com/dms/image/v2/D4D12AQFm7j9P-uo-QA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1698954536821?e=2147483647&v=beta&t=THOmiM3yi2pwvSaiQ4CsnezeJpeRXEo6JnmRd3kyKPw" alt="Ciberseguridad y amenazas" class="card-img">
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 - Guía de Ciberseguridad</p>
+    </footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const paginaActual = decodeURIComponent(window.location.pathname.split("/").pop());
+    const botonesMenu = document.querySelectorAll(".nav-item");
+
+    botonesMenu.forEach((boton) => {
+      boton.classList.remove("active");
+      const enlaceDestino = decodeURIComponent(boton.getAttribute("href").split("/").pop());
+
+      if (paginaActual === enlaceDestino && enlaceDestino !== "") {
+        boton.classList.add("active");
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

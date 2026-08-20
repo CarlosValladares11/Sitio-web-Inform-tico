@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>- INFORMÁTICA -</title>
+
+  <style>
+    /* VARIABLES GLOBALES: Paleta Cyberpunk / GTA VI */
+    :root {
+      --bg-dark: #03060d;               /* Fondo negro profundo */
+      --card-bg: rgba(8, 14, 28, 0.85);     /* Cristal oscuro translúcido */
+      --neon-cyan: #00f3ff;             /* Neón Cian */
+      --neon-magenta: #ff0055;          /* Neón Magenta/Rosa */
+      --text-main: #e0e6ed;             /* Texto claro */
+    }
+
+    /* ESTILOS DEL CUERPO GENERAL */
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* --- BARRA DE NAVEGACIÓN SUPERIOR (GLASSMORPHISM) --- */
+    .navbar-futurista {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 40px;               /* Relleno ajustado para acomodar el nuevo tamaño del logo */
+      background: rgba(3, 6, 13, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 2px solid var(--neon-cyan);
+      box-shadow: 0 4px 30px rgba(0, 243, 255, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    /* ESTILO MODIFICADO: LOGO MÁS GRANDE Y CLARAMENTE VISIBLE */
+    .nav-logo {
+      height: 75px;                     /* Aumentado de 42px a 75px para mayor visibilidad del dibujo */
+      width: auto;                      /* Mantiene la proporción original de la imagen */
+      max-width: 220px;                 /* Evita desbordamientos en logos anchos */
+      object-fit: contain;              /* Asegura que el logo no se deforme ni corte */
+      border-radius: 10px;              /* Esquinas suavemente redondeadas */
+      border: 2px solid var(--neon-cyan);/* Borde neón más definido */
+      box-shadow: 0 0 18px var(--neon-cyan), inset 0 0 10px rgba(0, 243, 255, 0.3); /* Resplandor intenso */
+      padding: 4px;                     /* Margen interno para resaltar el marco */
+      background: rgba(0, 243, 255, 0.05); /* Fondo tenue tipo cristal detrás de la imagen */
+      transition: all 0.3s ease;
+    }
+
+    /* Efecto hover al pasar el cursor sobre la imagen del logo */
+    .nav-logo:hover {
+      border-color: var(--neon-magenta);
+      box-shadow: 0 0 25px var(--neon-magenta), inset 0 0 12px rgba(255, 0, 85, 0.4);
+      transform: scale(1.04);           /* Ligero zoom al interactuar */
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      text-decoration: none;
+      color: #a0aec0;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(0, 243, 255, 0.15);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-item:hover {
+      color: #ffffff;
+      background: rgba(0, 243, 255, 0.18);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px var(--neon-cyan);
+      transform: translateY(-2px);
+    }
+
+    .nav-item.active {
+      color: #ffffff;
+      background: linear-gradient(135deg, rgba(0, 243, 255, 0.4), rgba(255, 0, 85, 0.4));
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 20px var(--neon-cyan);
+    }
+
+    /* --- SECCIONES A PANTALLA COMPLETA (FULLSCREEN) --- */
+    .fullscreen-section {
+      width: 100%;
+      height: 90vh;                     /* Ocupa el 90% del alto visible */
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      margin: 40px 0;                   /* Margen vertical para separar de las cajas */
+    }
+
+    /* Estilo para los elementos multimedia a pantalla completa (Imagen y Videos) */
+    .fullscreen-media {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      /* Configuración inicial para respuesta ultra fluida al scroll */
+      filter: brightness(0.1);          /* Inicia casi a oscuras */
+      opacity: 0.1;
+      transform: scale(0.95);
+      transition: filter 0.1s ease-out, opacity 0.1s ease-out, transform 0.1s ease-out;
+      will-change: filter, opacity, transform;
+    }
+
+    /* Capa de sombreado sobre la multimedia */
+    .overlay-glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(3,6,13,0.4) 0%, rgba(3,6,13,0.85) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Texto flotante encima de las secciones Fullscreen */
+    .hero-text-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero-title-gta {
+      font-size: 3.5rem;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #ffffff;
+      text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-magenta);
+      margin: 0 0 10px 0;
+    }
+
+    .hero-subtitle-gta {
+      font-size: 1.4rem;
+      color: var(--neon-cyan);
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px var(--neon-cyan);
+    }
+
+    /* --- CONTENEDOR DE CAJAS Y ANIMACIÓN DE SCROLL REVEAL --- */
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Animación de entrada para las tarjetas de información */
+    .reveal {
+      opacity: 0;
+      transform: translateY(70px) scale(0.93);
+      transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* --- CAJAS DE INFORMACIÓN INTERACTIVAS (HOVER & GLASS) --- */
+    .tech-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 243, 255, 0.2);
+      border-radius: 18px;
+      padding: 40px;
+      margin: 50px 0;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .tech-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 243, 255, 0.15) 0%, rgba(255, 0, 85, 0.05) 50%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .tech-card:hover {
+      transform: translateY(-10px) scale(1.015);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 35px rgba(0, 243, 255, 0.4), inset 0 0 15px rgba(0, 243, 255, 0.1);
+    }
+
+    .tech-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-title {
+      color: #ffffff;
+      font-size: 2rem;
+      border-left: 5px solid var(--neon-cyan);
+      padding-left: 18px;
+      margin-top: 0;
+      text-shadow: 0 0 12px rgba(0, 243, 255, 0.6);
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 35px;
+      align-items: center;
+    }
+
+    @media (max-width: 850px) {
+      .grid-2col { grid-template-columns: 1fr; }
+      .hero-title-gta { font-size: 2.2rem; }
+      .nav-logo { height: 55px; }        /* Ajuste para pantallas pequeñas */
+    }
+
+    /* --- MARCOS DE IMÁGENES DENTRO DE LAS CAJAS --- */
+    .img-container {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--neon-cyan);
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.25);
+      transition: all 0.4s ease;
+    }
+
+    .tech-img {
+      width: 100%;
+      height: 270px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease, filter 0.6s ease;
+    }
+
+    .img-container:hover {
+      border-color: var(--neon-magenta);
+      box-shadow: 0 0 30px rgba(255, 0, 85, 0.4);
+    }
+
+    .img-container:hover .tech-img {
+      transform: scale(1.12);
+      filter: brightness(1.2) contrast(1.15);
+    }
+
+    /* LISTAS Y TABLAS */
+    .tech-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .tech-list li {
+      padding: 12px 0;
+      border-bottom: 1px dashed rgba(0, 243, 255, 0.2);
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .tech-list li::before {
+      content: '►';
+      position: absolute;
+      left: 0;
+      color: var(--neon-cyan);
+      font-size: 13px;
+      text-shadow: 0 0 10px var(--neon-cyan);
+    }
+
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .tech-table th, .tech-table td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+    }
+
+    .tech-table th {
+      background: rgba(0, 243, 255, 0.12);
+      color: var(--neon-cyan);
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .tech-table tr:hover {
+      background: rgba(255, 0, 85, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar-futurista">
+    <div class="logo-container">
+      <a href="index.html">
+        <img src="logo.jpg" alt="Logo Tech" class="nav-logo">
+      </a>
+    </div>
+    
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-item">Hardware</a></li>
+      <li><a href="2.Sistemas.html" class="nav-item">Sistemas Operativos</a></li>
+      <li><a href="3.Redes.html" class="nav-item">Redes e Internet</a></li>
+      <li><a href="4.Cyberseguridad.html" class="nav-item">Ciberseguridad</a></li>
+      <li><a href="5.lenguajespro.html" class="nav-item">Software</a></li>
+    
+    </ul>
+  </nav>
+
+  <section class="fullscreen-section" style="margin-top: 0; height: 92vh;">
+    <video class="fullscreen-media scroll-dynamic-effect" autoplay muted loop playsinline>
+      <source src="Ai, Circuit Board, Electronics, Chip 4K Stock Footage.mp4" type="video/mp4">
+      Tu navegador no soporta la reproducción de video HTML5.
+    </video>
+    <div class="overlay-glow"></div>
+    
+    <div class="hero-text-content">
+      <h1 class="hero-title-gta">HARDWARE & ARQUITECTURA</h1>
+      <p class="hero-subtitle-gta">Infraestructura Física del Procesamiento Digital</p>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <section class="tech-card reveal">
+      <h2 class="card-title">01. Unidad Central (CPU) y Procesamiento Gráfico (GPU)</h2>
+      <div class="grid-2col">
+        <div>
+          <p>El núcleo de todo sistema informático procesa miles de millones de instrucciones lógicas por segundo para dar vida a los entornos digitales.</p>
+          <ul class="tech-list">
+            <li><strong>CPU (Procesador):</strong> Es el cerebro primario del sistema. Coordina el flujo de datos e interpreta algoritmos complejos.</li>
+            <li><strong>GPU (Procesador Gráfico):</strong> Módulo especializado en cálculos paralelos masivos para renderizado 3D e Inteligencia Artificial.</li>
+          </ul>
+        </div>
+        <div class="img-container">
+          <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?q=80&w=800&auto=format&fit=crop" alt="Procesador CPU" class="tech-img">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+<section class="fullscreen-section" style="margin-top: 0; height: 92vh;">
+    <video class="fullscreen-media scroll-dynamic-effect" autoplay muted loop playsinline>
+      <source src="Digital circuit board futuristic Technology background Video - Free 4K Stock Footage.mp4" type="video/mp4">
+      Tu navegador no soporta la reproducción de video HTML5.
+    </video>
+    <div class="overlay-glow"></div>
+    
+    <div class="hero-text-content">
+      <h1 class="hero-title-gta">ARQUITECTURA DE INTERCONEXIÓN</h1>
+      <p class="hero-subtitle-gta">Velocidades de bus extremo y microarquitectura física</p>
+    </div>
+  </section>
+
+
+
+  <main class="container">
+
+    <section class="tech-card reveal">
+      <h2 class="card-title">02. Jerarquía de Memorias de Trabajo</h2>
+      <p>La arquitectura de un ordenador requiere una comunicación directa e inmediata entre la memoria volátil ultrarrápida y los discos no volátiles.</p>
+      
+      <div class="grid-2col" style="margin-top: 25px;">
+        <div class="img-container">
+          <img src="https://images.unsplash.com/photo-1562976540-1502c2145186?q=80&w=800&auto=format&fit=crop" alt="Memoria RAM y SSD" class="tech-img">
+        </div>
+        <div>
+          <ul class="tech-list">
+            <li><strong>Memoria RAM:</strong> Almacenamiento temporal de alta velocidad que mantiene activas las instrucciones ejecutadas por la CPU.</li>
+            <li><strong>Unidades SSD NVMe:</strong> Unidades de estado sólido no volátiles capaces de transferir datos permanentemente a más de 7,000 MB/s.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <section class="fullscreen-section">
+    <video id="secondFullscreenVideo" class="fullscreen-media scroll-dynamic-effect" muted loop playsinline>
+      <source src="VideoTecnologia.mp4" type="video/mp4">
+      Tu navegador no soporta la reproducción de video HTML5.
+    </video>
+    <div class="overlay-glow"></div>
+
+    <div class="hero-text-content">
+      <h2 class="hero-title-gta" style="font-size: 2.5rem;">SIMULACIÓN DE CIRCUITOS EN TIEMPO REAL</h2>
+      <p class="hero-subtitle-gta">Análisis de flujo térmico y renderizado avanzado</p>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <section class="tech-card reveal">
+      <h2 class="card-title">03. Placa Madre (Motherboard) e Interconectividad</h2>
+      <p>La tarjeta madre es el circuito impreso maestro que integra todos los microchips, ranuras de expansión y controladores de la arquitectura.</p>
+      
+      <div class="grid-2col" style="margin-top: 25px;">
+        <div>
+          <table class="tech-table">
+            <thead>
+              <tr>
+                <th>Componente</th>
+                <th>Función Arquitectónica</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Socket CPU</td>
+                <td>Interfaz física directa de comunicación con el procesador.</td>
+              </tr>
+              <tr>
+                <td>Ranuras PCIe</td>
+                <td>Buses de expansión de ultra alta velocidad para tarjetas de video.</td>
+              </tr>
+              <tr>
+                <td>Chipset Norte/Sur</td>
+                <td>Gestiona la transferencia de paquetes de datos entre periféricos.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="img-container">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop" alt="Placa Madre" class="tech-img">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      // === CÓDIGO NUEVO A PEGAR (11 LÍNEAS) ===
+    const paginaActual = decodeURIComponent(window.location.pathname.split("/").pop());
+    const botonesMenu = document.querySelectorAll(".nav-item");
+
+    botonesMenu.forEach((boton) => {
+      boton.classList.remove("active");
+      const enlaceDestino = decodeURIComponent(boton.getAttribute("href").split("/").pop());
+
+      if (paginaActual === enlaceDestino && enlaceDestino !== "") {
+        boton.classList.add("active");
+      }
+    });
+    // ========================================
+      
+      const dynamicMediaElements = document.querySelectorAll(".scroll-dynamic-effect");
+      
+      function updateMediaOnScroll() {
+        const windowHeight = window.innerHeight;
+        const centerPoint = windowHeight / 2;
+
+        dynamicMediaElements.forEach((element) => {
+          const rect = element.getBoundingClientRect();
+          const elementCenter = rect.top + (rect.height / 2);
+          const distanceFromCenter = Math.abs(centerPoint - elementCenter);
+          const maxDistance = windowHeight * 0.75;
+
+          let normalizedFactor = distanceFromCenter / maxDistance;
+          normalizedFactor = Math.min(Math.max(normalizedFactor, 0), 1);
+
+          const brightnessVal = 1.15 - (normalizedFactor * 1.05);
+          const opacityVal    = 1 - (normalizedFactor * 0.9);
+          const scaleVal      = 1.02 - (normalizedFactor * 0.08);
+
+          element.style.filter = `brightness(${Math.max(brightnessVal, 0.1)})`;
+          element.style.opacity = Math.max(opacityVal, 0.1);
+          element.style.transform = `scale(${scaleVal})`;
+        });
+      }
+
+      window.addEventListener("scroll", updateMediaOnScroll);
+      updateMediaOnScroll();
+
+      // OBSERVADOR DE APARICIÓN PARA CAJAS
+      const elementosReveal = document.querySelectorAll(".reveal");
+      const observadorEntrada = new IntersectionObserver((entradas) => {
+        entradas.forEach((entrada) => {
+          if (entrada.isIntersecting) {
+            entrada.target.classList.add("active");
+          }
+        });
+      }, {
+        threshold: 0.15
+      });
+
+      elementosReveal.forEach((elemento) => {
+        observadorEntrada.observe(elemento);
+      });
+
+      // OBSERVADOR PARA SEGUNDO VIDEO
+      const secondVideo = document.getElementById("secondFullscreenVideo");
+      if (secondVideo) {
+        const observadorSegundoVideo = new IntersectionObserver((entradas) => {
+          entradas.forEach((entrada) => {
+            if (entrada.isIntersecting) {
+              secondVideo.play().catch(e => console.log("Autoplay:", e));
+            } else {
+              secondVideo.pause();
+            }
+          });
+        }, {
+          threshold: 0.25
+        });
+
+        observadorSegundoVideo.observe(secondVideo);
+      }
+
+    });
+  </script>
+
+</body>
+</html>

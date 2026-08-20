@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tema 5: Desarrollo de Software y Lenguajes de Programación</title>
+
+
+
+    <style>
+    /*INICIO STYLE NAV*/
+
+/* ========================================================= */
+/* ESTILOS DEL NAVEGADOR FUTURISTA (FIJO Y A PANTALLA COMPLETA) */
+/* ========================================================= */
+:root {
+  --bg-dark: #03060d;
+  --card-bg: rgba(8, 14, 28, 0.85);
+  --neon-cyan: #00f3ff;
+  --neon-magenta: #ff0055;
+  --text-main: #e0e6ed;
+}
+
+/* Limpieza de márgenes para asegurar cobertura de borde a borde */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* BARRA DE NAVEGACIÓN FIJA Y EXTENDIDA */
+.navbar-futurista {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  background: rgba(3, 6, 13, 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 2px solid var(--neon-cyan);
+  box-shadow: 0 4px 30px rgba(0, 243, 255, 0.3);
+
+  /* REGLAS PARA MANTENERLO FIJO A PANTALLA COMPLETA */
+  position: fixed;        /* Lo congela arriba permanentemente al hacer scroll */
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;            /* Abarca todo el ancho de la pantalla */
+  box-sizing: border-box; /* Previene scroll horizontal indeseado */
+  z-index: 9999;          /* Se mantiene por encima de cualquier otro elemento */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  height: 75px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 18px var(--neon-cyan), inset 0 0 10px rgba(0, 243, 255, 0.3);
+  padding: 4px;
+  background: rgba(0, 243, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.nav-logo:hover {
+  border-color: var(--neon-magenta);
+  box-shadow: 0 0 25px var(--neon-magenta), inset 0 0 12px rgba(255, 0, 85, 0.4);
+  transform: scale(1.04);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #a0aec0;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 243, 255, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item:hover {
+  color: #ffffff;
+  background: rgba(0, 243, 255, 0.18);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 15px var(--neon-cyan);
+  transform: translateY(-2px);
+}
+
+/* BRILLO Y DEGRADADO DE LA PESTAÑA ACTIVA */
+.nav-item.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(0, 243, 255, 0.4), rgba(255, 0, 85, 0.4));
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 20px var(--neon-cyan);
+}
+
+@media (max-width: 850px) {
+  .nav-logo { height: 55px; }
+}
+
+/*FIN STYLE NAV*/
+
+    /* Reseteo universal: elimina márgenes, rellenos y estandariza el cálculo de cajas en todos los elementos */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* Estilo general del cuerpo: tipografía limpia, fondo oscuro profundo con estética tecnológica y texto claro */
+    body { font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; background-color: #03050a; color: #d0dbe7; line-height: 1.8; padding: 30px 15px; }
+
+    /* Contenedor principal: limita el ancho de lectura a 1100px y centra horizontalmente la página */
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* Estilo del título principal h1: texto centrado, color blanco puro con resplandor luminoso cian */
+    h1 { text-align: center; color: #ffffff; text-shadow: 0 0 20px #00f3ff; margin-bottom: 10px; font-size: 2.5rem; font-weight: 800; }
+
+    /* Estilo del subtítulo decorativo: diseño tipo terminal en color cian brillante */
+    .subtitle { text-align: center; color: #00f3ff; margin-bottom: 30px; letter-spacing: 2px; font-size: 1.1rem; font-family: monospace; }
+
+    /* Estilo de la imagen principal: ancho completo, esquinas redondeadas y borde con brillo neón */
+    .hero-image {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        border-radius: 14px;
+        border: 2px solid #00f3ff;
+        box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
+        margin-bottom: 40px;
+        background-color: #000;
+    }
+
+    /* Estilo de las tarjetas de contenido: contenedores translúcidos estilo Glassmorphism con bordes brillantes */
+    .card { background: rgba(8, 14, 28, 0.9); border: 1px solid rgba(0, 243, 255, 0.4); border-radius: 14px; padding: 35px; margin-bottom: 35px; box-shadow: 0 0 25px rgba(0, 243, 255, 0.15); }
+
+    /* Estilo de los títulos secundarios h2: color cian, tamaño grande, con línea divisoria luminosa inferior */
+    h2 { color: #00f3ff; margin-bottom: 22px; font-size: 1.5rem; border-bottom: 2px solid rgba(0, 243, 255, 0.3); padding-bottom: 10px; text-shadow: 0 0 8px rgba(0,243,255,0.5); }
+
+    /* Estilo de los títulos terciarios h3: subtítulos internos para desglosar conceptos técnicos complejos */
+    h3 { color: #ffffff; margin: 22px 0 10px 0; font-size: 1.15rem; font-weight: 600; border-left: 3px solid #00f3ff; padding-left: 10px; }
+
+    /* Estilo de los párrafos: asegura separación inferior y justificación del texto para mejor legibilidad */
+    p { margin-bottom: 16px; text-align: justify; }
+
+    /* Configuración de listas desordenadas: aplica sangría izquierda y margen inferior */
+    ul { margin-left: 25px; margin-bottom: 16px; }
+
+    /* Estilo de cada elemento de lista (viñeta): añade separación vertical para no saturar la lectura */
+    li { margin-bottom: 10px; }
+
+    /* Estilo para las etiquetas strong: resalta palabras clave en blanco brillante */
+    strong { color: #ffffff; font-weight: 600; }
+
+    /* Estilo para las etiquetas de código en línea (ej. <code>): simula comandos o variables de sistema */
+    code { background: rgba(0, 243, 255, 0.1); color: #00f3ff; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.9rem; }
+
+    /* Estilo para las cajas de consola de comandos: fondo negro translúcido, borde punteado y fuente monoespaciada */
+    .code-box { background: rgba(0, 0, 0, 0.7); border: 1px dashed #00f3ff; padding: 18px; border-radius: 8px; font-family: monospace; color: #00f3ff; margin-top: 18px; font-size: 0.9rem; line-height: 1.6; }
+
+    /* Estilo del pie de página: texto centrado, atenuado, con línea superior de separación */
+    footer { text-align: center; margin-top: 60px; color: #7a8c9e; font-size: 0.9rem; border-top: 1px solid rgba(0,243,255,0.2); padding-top: 25px; }
+
+    .hero-figure { margin: 0 0 40px 0; text-align: center; }
+    .hero-figure figcaption { color: #8fa3b7; font-size: 0.82rem; margin-top: 10px; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 22px 0; }
+    .info-box { background: rgba(0,243,255,0.06); border: 1px solid rgba(0,243,255,0.22); border-radius: 10px; padding: 18px; }
+    .info-box h4 { color: #00f3ff; margin-bottom: 8px; }
+    .note { border-left: 4px solid #00f3ff; background: rgba(0,243,255,0.06); padding: 16px 18px; margin: 18px 0; border-radius: 0 8px 8px 0; }
+
+    </style>
+</head>
+<body>
+
+ <nav class="navbar-futurista">
+    <div class="logo-container">
+      <a href="index.html">
+        <img src="logo.jpg" alt="Logo Tech" class="nav-logo">
+      </a>
+    </div>
+    
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-item">Hardware</a></li>
+      <li><a href="2.Sistemas.html" class="nav-item">Sistemas Operativos</a></li>
+      <li><a href="3.Redes.html" class="nav-item">Redes e Internet</a></li>
+      <li><a href="4.Cyberseguridad.html" class="nav-item">Ciberseguridad</a></li>
+      <li><a href="5.lenguajespro.html" class="nav-item">Software</a></li>
+    
+    </ul>
+  </nav>
+
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <h1>Tema 5: Desarrollo de Software y Lenguajes de Programación</h1>
+
+        <!-- SECCIÓN 1: Ciclo de vida -->
+        <div class="card">
+            <h2>Ciclo de vida del software (SDLC)</h2>
+            <p>El Ciclo de Vida de Desarrollo de Software es el marco estructurado que define las tareas en cada etapa del proceso:</p>
+            
+            <div class="grid-boxes">
+                <div class="sub-box">
+                    <h3>01. Planificación</h3>
+                    <p>Se define el alcance general del proyecto, los recursos necesarios, los tiempos estimados y la viabilidad técnica.</p>
+                </div>
+                <div class="sub-box">
+                    <h3>02. Análisis de Requerimientos</h3>
+                    <p>Se recopila y detalla exactamente lo que el cliente o el usuario final necesita que el sistema realice.</p>
+                </div>
+                <div class="sub-box">
+                    <h3>03. Diseño</h3>
+                    <p>Se crea la arquitectura del software, los diagramas de bases de datos y la estructura visual de la interfaz.</p>
+                </div>
+                <div class="sub-box">
+                    <h3>04. Implementación</h3>
+                    <p>Fase activa donde los programadores escriben todo el código fuente utilizando los lenguajes elegidos.</p>
+                </div>
+                <div class="sub-box">
+                    <h3>05. Pruebas (Testing)</h3>
+                    <p>Se somete el sistema a revisiones para detectar errores (bugs) y garantizar que cumpla con lo requerido.</p>
+                </div>
+                <div class="sub-box">
+                    <h3>06. Despliegue y Mantenimiento</h3>
+                    <p>El software se lanza al entorno real y se le aplican actualizaciones continuas o correcciones futuras.</p>
+                </div>
+            </div>
+        <!-- Imagen para SDLC -->
+<figure class="hero-figure">
+    <img src="https://deintasc.com/wp-content/uploads/2025/08/etapas-del-sdlc-visualmente.webp" alt="Diagrama del ciclo de vida del software" class="hero-image">
+    <figcaption>Etapas del ciclo de vida del software.</figcaption>
+</figure>
+        </div>
+
+        <!-- SECCIÓN 2: Compilados vs Interpretados -->
+        <div class="card">
+            <h2>Diferencia entre Lenguajes Compilados e Interpretados</h2>
+            
+            <div class="grid-boxes">
+                <div class="sub-box">
+                    <h3>Lenguajes Compilados</h3>
+                    <p>Traducen todo el código fuente a código de máquina (binario) antes de ejecutarse.</p>
+                    <ul class="box-list">
+                        <li><strong>Ventaja:</strong> Velocidad de ejecución sumamente alta.</li>
+                        <li><strong>Desventaja:</strong> Menor portabilidad por sistema operativo.</li>
+                        <li><strong>Ejemplos:</strong> C, C++, Rust, Go.</li>
+                    </ul>
+                </div>
+                
+                <div class="sub-box">
+                    <h3>Lenguajes Interpretados</h3>
+                    <p>Un intérprete lee y ejecuta el código línea por línea en tiempo real durante su uso.</p>
+                    <ul class="box-list">
+                        <li><strong>Ventaja:</strong> Alta portabilidad y flexibilidad.</li>
+                        <li><strong>Desventaja:</strong> Suelen ser más lentos en rendimiento.</li>
+                        <li><strong>Ejemplos:</strong> Python, JavaScript, PHP.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Imagen para compilados vs interpretados -->
+<figure class="hero-figure">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0ZaIrpvCbh1M7CT1VYqTM4rHLMonwYLqoNhZR5QekcUE3wKoEEKAbnSK_Kt09ZTm-nQZYKf5SRRJ_33qVJBnMCm7PPpatVwPPFFAwAUnSqfoE8LekiSlswXL2APEz8Eyrj3VM0o01KFQ/s986/4278f0b3-b02e-4349-8d3c-6b924e3c2865+%25282%2529.jpg" alt="Comparación compilador vs intérprete" class="hero-image">
+    <figcaption>Diferencia visual entre compilación e interpretación.</figcaption>
+</figure>
+        </div>
+
+        <!-- SECCIÓN 3: Rol de HTML, CSS y JS -->
+        <div class="card">
+            <h2>El Rol de HTML, CSS y JavaScript</h2>
+            <p>Las tres tecnologías base que estructuran la experiencia web del lado del usuario (Front-End):</p>
+            
+            <div class="grid-boxes">
+                <div class="sub-box">
+                    <h3>HTML</h3>
+                    <p>Es el esqueleto y la estructura semántica de la web (textos, imágenes, enlaces, formularios).</p>
+                </div>
+                <div class="sub-box">
+                    <h3>CSS</h3>
+                    <p>Es la capa visual y de diseño (colores, fuentes, efectos glassmorphism y adaptabilidad responsive).</p>
+                </div>
+                <div class="sub-box">
+                    <h3>JavaScript</h3>
+                    <p>Es el motor de lógica e interactividad en tiempo real (respuestas a acciones, validaciones, APIs).</p>
+                </div>
+            </div>
+        </div>
+        <!-- Imagen para HTML, CSS y JS -->
+<figure class="hero-figure">
+    <img src="https://www.mourtada.se/wp-content/uploads/2015/05/logo-html5.jpg" alt="Iconos de HTML, CSS y JavaScript" class="hero-image">
+    <figcaption>Las tres tecnologías base del Front-End.</figcaption>
+</figure>
+    </div>
+
+</body>
+</html>
+    </style>
+
+
+
+</head>
+<body>
+
+    <h1>Tema 5: Desarrollo de Software y Lenguajes de Programación</h1>
+
+    <section>
+        <h2>Ciclo de vida del software (SDLC)</h2>
+        <p>El Ciclo de Vida de Desarrollo de Software (SDLC, por sus siglas en inglés) es un marco de trabajo que define las tareas realizadas en cada paso del proceso de desarrollo. Un ciclo típico incluye:</p>
+        <ol>
+            <li><strong>Planificación:</strong> Se define el alcance del proyecto, recursos, tiempos y viabilidad.</li>
+            <li><strong>Análisis de Requerimientos:</strong> Se recopila lo que el cliente o usuario final necesita que el sistema haga.</li>
+            <li><strong>Diseño:</strong> Se crea la arquitectura del software, los diagramas de base de datos y la interfaz de usuario (UI).</li>
+            <li><strong>Implementación (Desarrollo):</strong> Es la fase donde los programadores escriben el código fuente utilizando los lenguajes definidos.</li>
+            <li><strong>Pruebas (Testing):</strong> Se verifica el funcionamiento, buscando errores (bugs) y asegurando que se cumplan los requerimientos iniciales.</li>
+            <li><strong>Despliegue:</strong> El software se lanza al entorno de producción para que los usuarios puedan utilizarlo.</li>
+            <li><strong>Mantenimiento:</strong> Actualizaciones, corrección de errores reportados y mejoras de rendimiento a lo largo del tiempo.</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>Diferencia entre lenguajes compilados e interpretados</h2>
+        
+        <h3>Lenguajes Compilados</h3>
+        <p>Estos lenguajes utilizan un programa especial llamado <strong>compilador</strong> para traducir el código fuente escrito por el humano a código de máquina (binario) antes de que el programa se ejecute.</p>
+        <ul>
+            <li><strong>Ventaja:</strong> Su ejecución es muy rápida al ser código nativo.</li>
+            <li><strong>Desventaja:</strong> El proceso de compilación puede ser lento y el código suele ser específico para un sistema operativo (menos portable).</li>
+            <li><strong>Ejemplos:</strong> C, C++, Rust, Go.</li>
+        </ul>
+        
+        <h3>Lenguajes Interpretados</h3>
+        <p>En estos lenguajes, no hay una fase previa de compilación a binario. Un programa llamado <strong>intérprete</strong> lee y ejecuta el código línea por línea mientras el programa está en funcionamiento.</p>
+        <ul>
+            <li><strong>Ventaja:</strong> Gran portabilidad (el mismo código corre en casi cualquier sistema con el intérprete) y mayor facilidad para detectar errores en tiempo de ejecución.</li>
+            <li><strong>Desventaja:</strong> Suelen ser más lentos que los compilados, ya que deben "traducir" el código mientras se ejecutan.</li>
+            <li><strong>Ejemplos:</strong> Python, JavaScript, PHP, Ruby.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>El rol de HTML, CSS y JavaScript en el desarrollo web</h2>
+        <p>En el ecosistema web, estas tres tecnologías forman la base fundamental del desarrollo Front-End:</p>
+        <ul>
+            <li><strong>HTML (HyperText Markup Language):</strong> Es el esqueleto de la web. Se encarga de organizar el contenido (títulos, párrafos, enlaces, formularios, imágenes) mediante etiquetas semánticas.</li>
+            <li><strong>CSS (Cascading Style Sheets):</strong> Es la "capa de pintura" y diseño. Define los colores, fuentes, espaciados, animaciones y cómo se distribuye el contenido en diferentes dispositivos (móviles, tablets, escritorio).</li>
+            <li><strong>JavaScript:</strong> Es el cerebro del sitio. Proporciona la capacidad de crear comportamientos dinámicos, como validar formularios, consumir datos de una API (traer información externa), modificar el contenido de la página sin recargarla y crear experiencias interactivas complejas.</li>
+        </ul>
+    </section>
+
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const paginaActual = decodeURIComponent(window.location.pathname.split("/").pop());
+    const botonesMenu = document.querySelectorAll(".nav-item");
+
+    botonesMenu.forEach((boton) => {
+      boton.classList.remove("active");
+      const enlaceDestino = decodeURIComponent(boton.getAttribute("href").split("/").pop());
+
+      if (paginaActual === enlaceDestino && enlaceDestino !== "") {
+        boton.classList.add("active");
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
